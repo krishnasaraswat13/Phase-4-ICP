@@ -1,0 +1,21 @@
+class Solution {
+    public int minNumberOperations(int[] target) {
+        int res[]=new int[target.length];
+        int op=target[0];
+        int d=0;
+        int in=0;
+        for(int i=1;i<target.length;i++){
+            if(target[i]>target[i-1]){
+                op+=target[i]-target[i-1];
+                in=i;
+            }
+            else if(target[i]<=target[i-1]){
+                d=i;
+                if(d<in){
+                    op+=target[i]-target[i-1];
+                }
+            }
+        }
+        return op;
+    }
+}

@@ -1,0 +1,29 @@
+class Solution {
+    public int subarraysWithKDistinct(int[] arr, int k) {
+        int n = arr.length; 
+       int one=helper(arr,k);  //in this we are taking subarray with less than or equal to k
+       int two=helper(arr,k-1);  //subarray with less than or equal to k-1
+       return one-two; //so the final will be equal to k
+    
+    }
+        public int helper(int[] arr, int k) {
+        int l=0;
+        int r=0;
+        int res=0;
+        Map<Integer, Integer> freq = new HashMap<>();
+        while(r<arr.length){
+            freq.put(arr[r], freq.getOrDefault(arr[r], 0) + 1);
+            
+            while(freq.size()>k){
+                freq.put(arr[l], freq.get(arr[l])- 1);
+                if(freq.get(arr[l])==0){
+                    freq.remove(arr[l]);
+                }
+                l++;
+            }
+            res+=(r-l);
+            r++;
+        }
+        return res;
+    }
+}

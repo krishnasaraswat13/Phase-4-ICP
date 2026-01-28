@@ -1,0 +1,62 @@
+class Solution {
+    public int sumOfPower(int[] nums) {
+        int n=nums.length;
+        Arrays.sort(nums);
+        // List<List<List<Integer>>> dp=new ArrayList<>();
+        // List<List<Integer>> res=new ArrayList<>();
+        // for(int i=0;i<n;i++){
+        //     dp.add(new ArrayList<>());
+        // }
+        // dp.get(0).add(Arrays.asList(nums[0]));
+        // res.addAll(dp.get(0));
+        // for(int i=1;i<n;i++){
+        //     dp.get(i).add(Arrays.asList(nums[i]));
+        //     for(List<Integer> sub:dp.get(i-1)){
+        //         List<Integer> newSub=new ArrayList<>(sub);
+        //         newSub.add(nums[i]);
+        //         dp.get(i).add(newSub);
+        //         dp.get(i).add(dp.get(i-2));
+        //     }
+        //     res.addAll(dp.get(i));
+
+        // }
+        // int ans=0;
+        // for(int i=0;i<res.size();i++){
+        //     ans+=res.get(i).get(res.size()-1)*res.get(i).get(res.size()-1)*res.get(i).get(0);
+            
+        // }
+        // return ans;
+    //     long ans=0;
+    //     long mod=1000000007;
+        
+    //    // int n=nums.length;
+    //     for(int i=0;i<n;i++){
+    //         for(int j=i;j<n;j++){
+    //             long contrib = ( (long)nums[j] * nums[j] % mod ) * ( nums[i] % mod ) % mod * modPow(2, j - i - 1, mod) % mod;
+
+    //             ans = (ans + contrib) % mod;            
+    //         }
+    //     }
+    //     return (int)ans;
+    // }
+    // long modPow(long base, long exp, long mod) {  //for finding mod exponential    //tle due to this if size is bigger
+    // long result = 1;
+    // while (exp > 0) {
+    //     if ((exp & 1) == 1) result = (result * base) % mod;
+    //     base = (base * base) % mod;
+    //     exp >>= 1;
+    // }
+    // return result;
+
+
+        long ans = 0, pre = 0;
+        long mod = 1_000_000_007;
+
+        for (int x : nums) {
+            ans = (ans + (long)x * x % mod * ((pre + x) % mod) % mod) % mod;  //here prefix +x means taking it as a single subseq and a prefix is as a all previous elememnts as a min (a+b)*c=a*b +a*c so it callculate all subseq 
+            pre = (pre*2 + x) % mod;     
+        }
+        return (int) ans;
+
+    }
+}
